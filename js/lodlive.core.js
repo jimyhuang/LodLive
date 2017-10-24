@@ -132,14 +132,22 @@ var debugOn = false;
 		},
 		guessingEndpoint : function(uri, onSuccess, onFail) {
 			var base = uri.replace(/(^http:\/\/[^\/]+\/).+/, "$1");
-			var guessedEndpoint = base + "sparql?" + $.jStorage.get('endpoints')['all'] + "&query=" + encodeURIComponent("select * where {?a ?b ?c} LIMIT 1");
+      var correctEndpoint = '';
+      if (uri.match(/sparql$/)) {
+        var guessedEndpoint = uri + "?" + $.jStorage.get('endpoints')['all'] + "&query=" + encodeURIComponent("select * where {?a ?b ?c} LIMIT 1");
+        correctEndpoint = uri;
+      }
+      else {
+        var guessedEndpoint = base + "sparql?" + $.jStorage.get('endpoints')['all'] + "&query=" + encodeURIComponent("select * where {?a ?b ?c} LIMIT 1");
+        correctEndpoint = base + "sparql";
+      }
 			$.jsonp({
 				url : guessedEndpoint,
 				success : function(data) {
 					if (data && data.results && data.results.bindings[0]) {
 						var connections = lodLiveProfile.connection;
 						connections[base] = {
-							endpoint : base + "sparql"
+							endpoint : correctEndpoint
 						};
 						lodLiveProfile.connection = connections;
 						onSuccess();

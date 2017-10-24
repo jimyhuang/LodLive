@@ -172,7 +172,7 @@ $.jStorage
                                 inverse : 'SELECT DISTINCT * WHERE {?object ?property <{URI}>.FILTER(isIRI(?object) && ?property != <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> && ?property != <http://www.w3.org/1999/02/22-rdf-syntax-ns#object> && !REGEX(?object,"fact_"))} LIMIT 100',
                                 inverseSameAs : 'SELECT DISTINCT * WHERE {?object <http://www.w3.org/2002/07/owl#sameAs> <{URI}> FILTER(!REGEX(STR(?object),\'dbpedia\'))}'
                             },
-                            endpoint : 'http://lod.openlinksw.com/sparql',
+                            endpoint : 'http://www.openlinksw.com/sparql',
                             useForInverseSameAs : true,
                             examples : [ {
                                 uri : 'http://yago-knowledge.org/resource/Mario_Monti',

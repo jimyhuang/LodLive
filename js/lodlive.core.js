@@ -138,6 +138,9 @@ var debugOn = false;
         correctEndpoint = uri;
       }
       else {
+        if (typeof window.lodliveSubdirectory === 'string') {
+          base += window.lodliveSubdirectory + '/';
+        }
         var guessedEndpoint = base + "sparql?" + $.jStorage.get('endpoints')['all'] + "&query=" + encodeURIComponent("select * where {?a ?b ?c} LIMIT 1");
         correctEndpoint = base + "sparql";
       }
